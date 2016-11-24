@@ -1,0 +1,14 @@
+{
+  "name": "PracenjeGresaka",
+  "version": "0.1.1",
+  "description": "Primer REST back end aplikacije. Node, Express, MongoDB, Mongoose.",
+  "author": "",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.7.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {},
+  "license": "MIT"
+}
