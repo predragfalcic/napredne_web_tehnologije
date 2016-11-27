@@ -19,6 +19,18 @@ var dogadjajSchema = new Schema({
         type: String,
         require: true,
         unique: false
+    },
+    // Vreme nastanka izuzetka
+    vreme_nastanka: {
+        type: Date,
+        require: true,
+        unique: false
+    },
+    // Dodatna proizvoljni podaci u JSON formatu
+    proizv_podaci: {
+        type: Object,
+        require: false,
+        unique: false
     }
 });
 
