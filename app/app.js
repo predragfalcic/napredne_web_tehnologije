@@ -1,53 +1,29 @@
 var express = require('express');
 var path = require("path");
 var app = express();
-var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
 
-var user = require(path.join(__dirname+'/model/Users'));
+var userRouter = require('../app/controller/users');
 
+// var user = require(path.join(__dirname+'/model/Users'));
+
+// konekcija sa bazom
 mongoose.connect('mongodb://localhost/pracenje_gresaka_db')
+
+// konfigurisemo bodyParser()
+// da bismo mogli da preuzimamo podatke iz POST zahteva
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 
 var port = process.env.PORT || 8080; // na kom portu slusa server
 
-// ruter za blogEntries
-var userEntryRouter = express.Router(); // koristimo express Router
-
-app.get('/', function(req, res){
-    res.sendFile(path.join(__dirname+'/public/html/index.html'));
-});
-
-// Kreiramo novog korisnika
-var pera = user({
-  email: 'pera2@gmail.com',
-  ime: 'Pera',
-  prezime: 'Peric',
-  lozinka: 'lozinka'
-});
-
-// Pozivamo ugradjenu save metodu
-pera.save(function(err){
-    if (err) throw err;
-
-    console.log('User uspesno sacuvan.');
-})
-
-// Kreiramo rutere
-var userRouter = express.Router();
-
-userRouter
-    .get('/signup', function(req, res){
-        user.find({}, function(err, user){
-            if (err) throw err;
-
-            res.json(user);
-            console.log(user);
-        })
-    })
-    .post('/login', function(req, res){
-        res.end(user);
-    });
-
+//Prikazivanje html file-a
+// app.get('/', function(req, res){
+//     res.sendFile(path.join(__dirname+'/public/html/index.html'));
+// });
 
 // dodavanje rutera zu korisnike /users
 app.use('/accounts', userRouter);
