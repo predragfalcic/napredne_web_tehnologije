@@ -23,6 +23,9 @@ var userSchema = new Schema({
         require: true,
         unique: false
     },
+    //Aplikacije koje je kreirao
+    aplikacije: [{ type: Schema.Types.ObjectId, ref: 'Aplikacija' }],
+
     createdAt: Date,
     updatedAt: Date,
 
@@ -59,12 +62,6 @@ userSchema.methods.generateJwt = function(){
         exp: parseInt(expiry.getTime() / 1000),
     }, secretKey.toString());
 };
-
-// Proveravamo da li je korisnik ulogovan
-// Ukoliko nije ne moze da pristupi svom profilu
-userSchema.methods.isLoggedIn = function(){
-    var token = getToken();
-}
 
 // Pre nego sto korisnika sacuvano, odredjujemo vreme kreiranja ili azuriranja korisnika
 userSchema.pre('save', function(next){

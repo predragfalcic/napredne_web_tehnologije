@@ -5,6 +5,8 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
 var userRouter = require('../app/controller/users');
+var aplikacijaRouter = require('../app/controller/aplikacije');
+var dogadjajRouter = require('../app/controller/dogadjaji');
 
 // var user = require(path.join(__dirname+'/model/Users'));
 
@@ -27,7 +29,8 @@ var port = process.env.PORT || 8080; // na kom portu slusa server
 
 // dodavanje rutera zu korisnike /users
 app.use('/accounts', userRouter);
-
+app.use('/app', aplikacijaRouter);
+app.use('/dogadjaj', dogadjajRouter);
 
 //na kraju dodajemo middleware za obradu gresaka
 app.use(function(err, req, res, next) {
