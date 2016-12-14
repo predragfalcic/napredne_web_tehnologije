@@ -3,11 +3,26 @@ var express = require('express');
 
 var app = express();
 
+var nodemailer = require("nodemailer");
+
 // var bodyParser = require('body-parser');
 var user = require('../model/user');
 
 // Kreiramo router za naseg korisnika
 var userEntryRouter = express.Router();
+
+/*
+    Ovde konfigurisemo SMTP server. Koristi se za slanje i primanje mail-a
+ */
+
+var smtpTransport = nodemailer.createTransport("SMTP",{
+    service: "Gmail",
+    auth: {
+        user: "restoraniisa.mrs@gmail.com",
+        pass: "restorani"
+    }
+});
+var rand, mailOptions, host, link;
 
 userEntryRouter
     // Registracija korisnika
@@ -29,17 +44,61 @@ userEntryRouter
 
         userEntry.setPassword(req.body.lozinka);
 
+        rand = Math.floor((Math.random() * 100) + 54);
+        host = req.get('host');
+        // Verifikacioni link
+        link = "http://"+req.get('host')+"/accounts/verify?id="+rand;
+
+        mailOptions = {
+            to: req.body.email,
+            subject: "Please confirm your email account",
+            html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a>"
+        }
+        console.log(mailOptions);
+
         userEntry.save(function(err, entry){
             if(err) return next(err);
             
+            // Slanje verifikacionog mail-a
+            smtpTransport.sendMail(mailOptions, function(error, response){
+                if(error){
+                    console.log(error);
+                    res.end("error");
+                } else {
+                    console.log("Message sent: " + response.message);
+                    res.end("sent");
+                }
+            });
             var token;
             tokent = userEntry.generateJwt();
             res.status(200);
             res.json({
                 "token": token,
-                message: 'Uspesno ste se registrovali'
+                message: 'Uspesno ste se registrovali.'
             });
         });
+    })
+
+    .get('/verify',function(req,res){
+        console.log(req.protocol+":/"+req.get('host'));
+        if((req.protocol+"://"+req.get('host'))==("http://"+host))
+        {
+            console.log("Domain is matched. Information is from Authentic email");
+            if(req.query.id==rand)
+            {
+                console.log("email is verified");
+                res.end("<h1>Email "+mailOptions.to+" is been Successfully verified");
+            }
+            else
+            {
+                console.log("email is not verified");
+                res.end("<h1>Bad Request</h1>");
+            }
+        }
+        else
+        {
+            res.end("<h1>Request is from unknown source");
+        }
     })
     
     // Prijava korisnika na sistem
