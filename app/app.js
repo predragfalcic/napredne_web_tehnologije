@@ -7,6 +7,8 @@ var userRouter = require('../app/controller/users');
 var aplikacijaRouter = require('../app/controller/aplikacije');
 var dogadjajRouter = require('../app/controller/dogadjaji');
 
+// var user = require(path.join(__dirname+'/model/Users'));
+
 // konekcija sa bazom
 mongoose.connect('mongodb://localhost/pracenje_gresaka_db')
 
@@ -17,7 +19,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 8181; // na kom portu slusa server
+var port = process.env.PORT || 8080; // na kom portu slusa server
 
 //Prikazivanje html fajlova.
 app.get('/', function(req, res){
