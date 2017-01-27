@@ -3,12 +3,9 @@ var path = require("path");
 var app = express();
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-
 var userRouter = require('../app/controller/users');
 var aplikacijaRouter = require('../app/controller/aplikacije');
 var dogadjajRouter = require('../app/controller/dogadjaji');
-
-// var user = require(path.join(__dirname+'/model/Users'));
 
 // konekcija sa bazom
 mongoose.connect('mongodb://localhost/pracenje_gresaka_db')
@@ -20,12 +17,21 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 8080; // na kom portu slusa server
+var port = process.env.PORT || 8181; // na kom portu slusa server
 
-//Prikazivanje html file-a
-// app.get('/', function(req, res){
-//     res.sendFile(path.join(__dirname+'/public/html/index.html'));
-// });
+//Prikazivanje html fajlova.
+app.get('/', function(req, res){
+     res.sendFile(path.join(__dirname + "/public/" + "index.html" ));
+ });
+
+app.get('/signup', function(req, res){
+     res.sendFile(path.join(__dirname + "/public/" + "signup.html" ));
+ });
+
+ app.get('/login', function(req, res){
+     res.sendFile(path.join(__dirname + "/public/" + "login.html" ));
+ });
+
 
 // dodavanje rutera zu korisnike /users
 app.use('/accounts', userRouter);

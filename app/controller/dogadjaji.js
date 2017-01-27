@@ -10,7 +10,7 @@ var aplikacija = require('../model/aplikacija');
 var dogadjajEntryRouter = express.Router();
 
 dogadjajEntryRouter
-    // Kreiranje aplikacije
+    // Kreiranje dogadjaja
     .post('/:id', function(req, res, next){
         var dogadjajEntry = new dogadjaj(req.body);
         aplikacija.findOne({"_id":req.params.id}, function(err, entry){

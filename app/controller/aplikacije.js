@@ -43,10 +43,8 @@ aplikacijaEntryRouter
         });
     })
     .delete('/:id', function(req, res, next) {
-        aplikacija.remove({
-            "_id": req.params.id
-        }, function(err, successIndicator) {
-            if (err) next(err);
+        aplikacija.remove({"_id": req.params.id}, function(err, successIndicator) {
+            if (err) return next(err);
                 res.json(successIndicator);
         });
     });
