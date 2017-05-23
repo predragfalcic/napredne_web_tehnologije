@@ -4,8 +4,8 @@ var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
 var path = require("path");
 
-var secretKey = require(path.join(__dirname + '/key'));
-
+//var secretKey = require(path.join(__dirname + '/key'));
+var secretKey = 'asdasda';
 //Kreiramo shemu za korisnika
 var userSchema = new Schema({
     email: {

@@ -1,5 +1,13 @@
 var mongoose = require('mongoose');
 var express = require('express');
+var key = require('../model/key');
+
+//kreiranje jwt-a za preppoznavanj neulogovanih korisnika
+var jwt = require('express-jwt');
+var profile_auth = jwt({
+  secret: 'asdasda',
+  userProperty: 'payload'
+});
 
 var app = express();
 
@@ -132,7 +140,25 @@ userEntryRouter
                     });
                 }
             }
-        });
+        })
+    })
+        
+    // Prijava korisnika na sistem
+    .get('/profile', profile_auth,  function(req, res, next){
+        // If no user ID exists in the JWT return a 401
+        if (!req.payload._id) {
+            return res.status(401).json({
+            "message" : "UnauthorizedError: private profile",
+            "id" : req.payload._id
+            });
+        } else {
+            // Otherwise continue
+            User
+            .findById(req.payload._id)
+            .exec(function(err, user) {
+                res.status(200).json(user);
+            });
+        }
     });
 
 module.exports = userEntryRouter;
