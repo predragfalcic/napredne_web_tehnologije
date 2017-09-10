@@ -33,7 +33,6 @@ dogadjajEntryRouter
                 res.json(successIndicator);
         });
     })
-
     .get('/', function(req, res) {
         dogadjaj.find({}, function(err, data, next) {
             res.json(data);

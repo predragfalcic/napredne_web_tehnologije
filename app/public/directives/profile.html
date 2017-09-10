@@ -1,0 +1,26 @@
+<div ng-controller="profileCtrl">
+    <h4>Welcome to your profile {{user.ime}} {{user.prezime}} your id is {{user.id}}</h4>
+    <button ng-click="logout()">Logout</button>
+    <table>
+        <thead>
+			<tr>
+				<th>Naziv</th>
+				<th>Opis</th>
+				<th>Verzija</th>
+                <th>Repozitorijum</th>
+                <th>odg_osoba</th>
+                <th>DSN</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="aplikacija in aplikacije">
+                <td>{{aplikacija.naziv}}</td>
+                <td>{{aplikacija.opis}}</td>
+                <td>{{aplikacija.verzija}}</td>
+                <td>{{aplikacija.repozitorijum}}</td>
+                <td>{{aplikacija.odg_osoba}}</td>
+                <td>{{aplikacija.DNS}}</td>
+			</tr>
+		</tbody>
+    </table>
+</div>

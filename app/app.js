@@ -8,7 +8,6 @@ var userRouter = require('../app/controller/users');
 var aplikacijaRouter = require('../app/controller/aplikacije');
 var dogadjajRouter = require('../app/controller/dogadjaji');
 
-
 // connection with mongodb
 mongoose.connect('mongodb://localhost/pracenje_gresaka_db')
 
@@ -21,28 +20,18 @@ app.use(bodyParser.json());
 
 var port = process.env.PORT || 8181; 
 
+//klijentsku angular aplikaciju serviramo iz direktorijuma public
+app.use('/app', express.static(__dirname + '/public/'));
 
 //view of html files
 app.get('/', function(req, res){
-     res.sendFile(path.join(__dirname + "/public/" + "primer01.html" ));
+     res.sendFile(path.join(__dirname + "/public/" + "index.html" ));
  });
-
-app.get('/signup', function(req, res){
-     res.sendFile(path.join(__dirname + "/public/" + "signup.html" ));
- });
-
- app.get('/login', function(req, res){
-     res.sendFile(path.join(__dirname + "/public/" + "login.html" ));
- });
-
 
 // dodavanje rutera zu korisnike /users
 app.use('/api/accounts', userRouter);
 app.use('/api/app', aplikacijaRouter);
 app.use('/api/dogadjaj', dogadjajRouter);
-//klijentsku angular aplikaciju serviramo iz direktorijuma public
-app.use('/app', express.static(__dirname + '/public/'));
-//klijentsku angular aplikaciju serviramo iz direktorijuma client
 
 //na kraju dodajemo middleware za obradu gresaka
 app.use(function(err, req, res, next) {
@@ -56,10 +45,10 @@ app.use(function(err, req, res, next) {
     return res.json({"message" : err.name + ": " + err.message});
   }
 
-  return res.status(status).json({
-    message: message,
-    error: error
-  });
+  // return res.status(status).json({
+  //   message: message,
+  //   error: error
+  // });
 });
 
 

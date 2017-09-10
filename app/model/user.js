@@ -43,7 +43,8 @@ userSchema.methods.setPassword = function(lozinka){
 
 // Obrnuto radnja od hasovanja lozinke da bi smo mogli da je uporedimo sa unetom
 userSchema.methods.validPassword = function(lozinka){
-    var hash = crypto.pbkdf2Sync(lozinka, this.salt, 1000, 64).toString('hex');
+    var newPassword = new Buffer(lozinka, 'binary');
+    var hash = crypto.pbkdf2Sync(newPassword, this.salt, 1000, 64).toString('hex');
     return this.hash === hash;
 };
 

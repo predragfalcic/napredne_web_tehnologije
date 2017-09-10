@@ -36,12 +36,6 @@ aplikacijaEntryRouter
             res.json(entry);
         });
     })
-
-    .get('/', function(req, res) {
-        aplikacija.find({}, function(err, data, next) {
-            res.json(data);
-        });
-    })
     .delete('/:id', function(req, res, next) {
         aplikacija.remove({"_id": req.params.id}, function(err, successIndicator) {
             if (err) return next(err);
