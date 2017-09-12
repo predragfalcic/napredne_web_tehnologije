@@ -1,7 +1,7 @@
 (function (angular) {
 
 var scotchTodo = angular.module('scotchTodo', ['ngRoute', 'authentication', 'registerModule', 'loginModule',
- 'profileModule', 'profile', 'appDetailsModule']);
+ 'profileModule', 'profile', 'appDetailsModule', 'appEditModule']);
 
 scotchTodo.config(function($routeProvider) {
 	$routeProvider.when('/', {
@@ -18,6 +18,9 @@ scotchTodo.config(function($routeProvider) {
 	})
 	.when('/details', {
 		templateUrl: '../app/directives/appDetails.html'
+	})
+	.when('/edit', {
+		templateUrl: '../app/directives/editApp.html'
 	})
 	.otherwise({
 		redirectTo: '/'

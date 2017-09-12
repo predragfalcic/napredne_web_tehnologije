@@ -1,0 +1,23 @@
+<div ng-controller="appEditCtrl" class="container col-md-6 col-md-offset-3 text-center">
+	<div class="col-md-3">
+		<a href="#/logout" ng-click="logout()">Logout</a>
+	</div>
+	<br> <br>
+	<h3>Informacije o aplikaciji</h3>
+	<label class="control-label" for="inputSmall">Odgovorni korisnik: {{user.ime}} {{user.prezime}}</label>
+	<div class="form-group">
+		<h3>Dodaju novu aplikaciju</h3><br>
+		<label class="control-label" for="inputSmall">Naziv aplikacije</label>
+		<input class="form-control input-sm" type="text" placeholder="Naziv aplikacije" ng-model="app.naziv"><br>
+		<label for="textArea" class="control-label">Opis aplikacije</label>
+		<textarea class="form-control" rows="3" id="textArea" cols="30" rows="10" type="text" placeholder="Opis" ng-model="app.opis"></textarea><br>
+
+		<label class="control-label" for="inputSmall">Verzija aplikacije</label>
+		<input class="form-control input-sm" type="text" placeholder="verzija aplikacije" ng-model="app.verzija"><br>
+		<label class="control-label" for="inputSmall">Repozitorijum</label>
+		<input class="form-control input-sm" type="text" placeholder="Repozitorijum aplikacije" ng-model="app.repozitorijum"><br>
+		<label class="control-label" for="inputSmall">DSN aplikacije</label>
+		<input class="form-control input-sm" type="text" placeholder="Domen aplikacije" ng-model="app.DSN"><br>
+		<button class="btn btn-primary" ng-click="editApp(app)">Izmeni</button>
+	</div>
+</div> 

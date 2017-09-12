@@ -52,6 +52,12 @@
             $window.sessionStorage.app_id = app._id;
             $location.path('/details/');
         }
+
+        // edit app
+        $scope.editApp = function(app){
+            $window.sessionStorage.app_id = app._id;
+            $location.path('/edit/');
+        }
     
         $scope.ucitajAplikacije();
 

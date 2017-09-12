@@ -4,7 +4,11 @@
 	</div>
 	<br> <br>
 	<h3>Informacije o aplikaciji</h3>
-	<label class="control-label" for="inputSmall">Odgovorni korisnik: {{user.ime}} {{user.prezime}}</label>
+    <label class="control-label" for="inputSmall">Odgovorni korisnik: {{user.ime}} {{user.prezime}}</label>
+    <div class="panel panel-default">
+            <div class="panel-heading">ID aplikacije</div>
+            <div class="panel-body">{{a._id}}</div>
+        </div>
 	<div class="panel panel-default">
 		<div class="panel-heading">Naziv aplikacije</div>
 		<div class="panel-body">{{a.naziv}}</div>
@@ -26,5 +30,24 @@
     <div class="panel panel-default">
 		<div class="panel-heading">DSN aplikacije</div>
 		<div class="panel-body">{{a.DSN}}</div>
-	</div>
+    </div>
+    <h2>Izuzeci aplikacije</h2>
+    <table class="table table-striped">
+        <thead>
+			<tr>
+				<th>Verzija aplikacije</th>
+                <th>Fragment</th>
+                <th>Datum nastanka</th>
+                <th>Obrisi</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="d in a.dogadjaji">
+                <td>{{d.app_verzija}}</td>
+                <td>{{d.fragment}}</td>
+                <td>{{d.vreme_nastanka | date:'MM/dd/yyyy HH:mm'}}</td>
+                <td><button ng-click="deleteDog(d)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
+			</tr>
+		</tbody>
+    </table>
 </div> 

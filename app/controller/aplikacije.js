@@ -16,7 +16,7 @@ aplikacijaEntryRouter
     // id je id korisnika
     .post('/:id', function(req, res, next){
         var aplikacijaEntry = new aplikacija(req.body);
-        console.log("aplikacijaEntry " + JSON.stringify(aplikacijaEntry));
+        // console.log("aplikacijaEntry " + JSON.stringify(aplikacijaEntry));
         user.findOne({"_id":req.query.id}, function(err, entry){
             if(err) return next(err);
             aplikacijaEntry.save(function(err, aplikacija){
@@ -33,13 +33,31 @@ aplikacijaEntryRouter
         });
     })
 
+    // Edit application with the given id
+    .post('/edit/:id', function(req, res, next){
+        console.log("User id " + req.query.id);
+        console.log("App id " + req.body._id);
+        console.log("App " + JSON.stringify(req.body));
+        user.findOne({"_id":req.query.id}, function(err, entry){
+            if(err) return next(err);
+            aplikacija.findByIdAndUpdate({_id: req.body._id}, req.body, {new: true}, function(err, entry){
+                if(err) return next(err);
+                console.log("Izmenjena aplikacija " + entry);
+                res.setHeader('Content-Type', 'application/json');
+                res.header("Access-Control-Allow-Origin", "*");
+                res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+                res.header("Access-Control-Allow-Credentials", true);
+                return res.json(entry);
+            });
+        });
+    })
+
     .get('/:id', function(req, res, next) {
         aplikacija.findOne({
             "_id": req.query.id
         }).populate('dogadjaji').exec(function(err, entry){
             // Ukoliko je doslo do greske predjemo na sledeci middleware
             if(err) return next(err);
-            console.log("Aplikacija " + JSON.stringify(entry));
             res.json(entry);
         });
     })
