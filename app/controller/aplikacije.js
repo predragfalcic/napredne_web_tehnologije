@@ -13,15 +13,21 @@ var aplikacijaEntryRouter = express.Router();
 
 aplikacijaEntryRouter
     // Kreiranje aplikacije
+    // id je id korisnika
     .post('/:id', function(req, res, next){
         var aplikacijaEntry = new aplikacija(req.body);
-        user.findOne({"_id":req.params.id}, function(err, entry){
+        console.log("aplikacijaEntry " + JSON.stringify(aplikacijaEntry));
+        user.findOne({"_id":req.query.id}, function(err, entry){
             if(err) return next(err);
             aplikacijaEntry.save(function(err, aplikacija){
                 if(err) return next(err);
                 user.findByIdAndUpdate(entry._id, {$push:{"aplikacije":aplikacijaEntry._id}}, function(err, entry){
                     if(err) return next(err);
-                    res.json(entry);
+                    res.setHeader('Content-Type', 'application/json');
+                    res.header("Access-Control-Allow-Origin", "*");
+                    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+                    res.header("Access-Control-Allow-Credentials", true);
+                    res.json(entry.aplikacije);
                 });
             });
         });
@@ -29,10 +35,11 @@ aplikacijaEntryRouter
 
     .get('/:id', function(req, res, next) {
         aplikacija.findOne({
-            "_id": req.params.id
+            "_id": req.query.id
         }).populate('dogadjaji').exec(function(err, entry){
             // Ukoliko je doslo do greske predjemo na sledeci middleware
             if(err) return next(err);
+            console.log("Aplikacija " + JSON.stringify(entry));
             res.json(entry);
         });
     })

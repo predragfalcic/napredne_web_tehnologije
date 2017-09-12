@@ -1,0 +1,30 @@
+<div ng-controller="appDetailsCtrl" class="container col-md-6 col-md-offset-3 text-center">
+	<div class="col-md-3">
+		<a href="#/logout" ng-click="logout()">Logout</a>
+	</div>
+	<br> <br>
+	<h3>Informacije o aplikaciji</h3>
+	<label class="control-label" for="inputSmall">Odgovorni korisnik: {{user.ime}} {{user.prezime}}</label>
+	<div class="panel panel-default">
+		<div class="panel-heading">Naziv aplikacije</div>
+		<div class="panel-body">{{a.naziv}}</div>
+	</div>
+	
+	<div class="panel panel-default">
+		<div class="panel-heading">Opis aplikacije</div>
+		<div class="panel-body">{{a.opis}}</div>
+	</div>
+	
+	<div class="panel panel-default">
+		<div class="panel-heading">Repozitorijum aplikacije</div>
+		<div class="panel-body">{{a.repozitorijum}}</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">Verzija aplikacije</div>
+		<div class="panel-body">{{a.verzija}}</div>
+    </div>
+    <div class="panel panel-default">
+		<div class="panel-heading">DSN aplikacije</div>
+		<div class="panel-body">{{a.DSN}}</div>
+	</div>
+</div> 

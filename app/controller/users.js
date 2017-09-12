@@ -91,21 +91,20 @@ userEntryRouter
     // Ucitaj sve aplikacije za korisnika sa datim id-em
     .get('/aplikacije/:id', function(req, res, next){
         // Proveravamo da li korisnik sa tom email adresom vec postoji
-        console.log("ID " + JSON.stringify(req.query));
+        // console.log("ID " + JSON.stringify(req.query));
         user.findOne({
             _id: req.query.id
         }, function(err, db_user){
             // Korisnik sa tom email adresom ne postoji
             if(!db_user){
                 return res.json({ success: false, message: 'Korisnik nije pronadjen.'});
-            }else{
-                console.log("aplikacije " + db_user.aplikacije);
             }
         }).populate('aplikacije').exec(function(err, entry){
             // Ukoliko je doslo do greske predjemo na sledeci middleware
             // if(err) return next(err);
             // return res.json(entry);
-            return res.send(JSON.stringify(entry));
+            // console.log("Aplikacije korisnika: " + entry.aplikacije);
+            return res.send(JSON.stringify(entry.aplikacije));
             // console.log("Entry " + JSON.stringify(entry));
         });
     })

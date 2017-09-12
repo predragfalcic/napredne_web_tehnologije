@@ -8,8 +8,10 @@
 				<th>Opis</th>
 				<th>Verzija</th>
                 <th>Repozitorijum</th>
-                <th>odg_osoba</th>
+                <th>Odgovorna osoba</th>
                 <th>DSN</th>
+                <th>Detalji</th>
+                <th>Obrisi</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -18,9 +20,26 @@
                 <td>{{aplikacija.opis}}</td>
                 <td>{{aplikacija.verzija}}</td>
                 <td>{{aplikacija.repozitorijum}}</td>
-                <td>{{aplikacija.odg_osoba}}</td>
-                <td>{{aplikacija.DNS}}</td>
+                <td>{{user.ime}} {{user.prezime}}</td>
+                <td>{{aplikacija.DSN}}</td>
+                <td><button ng-click="detailsApp(aplikacija)">Detailji</button></td>
+                <td><button ng-click="deleteApp(aplikacija)">Obrisi</button></td>
 			</tr>
 		</tbody>
     </table>
+    <div class="form-group">
+		<h3>Dodaju novu aplikaciju</h3><br>
+		<label class="control-label" for="inputSmall">Naziv aplikacije</label>
+		<input class="form-control input-sm" type="text" placeholder="Naziv aplikacije" ng-model="app.naziv"><br>
+		<label for="textArea" class="control-label">Opis aplikacije</label>
+		<textarea class="form-control" rows="3" id="textArea" type="text" placeholder="Opis" ng-model="app.opis"></textarea><br>
+
+		<label class="control-label" for="inputSmall">Veryija aplikacije</label>
+		<input class="form-control input-sm" type="text" placeholder="verzija aplikacije" ng-model="app.verzija"><br>
+		<label class="control-label" for="inputSmall">Repozitorijum</label>
+		<input class="form-control input-sm" type="text" placeholder="Repozitorijum aplikacije" ng-model="app.repozitorijum"><br>
+		<label class="control-label" for="inputSmall">DSN aplikacije</label>
+		<input class="form-control input-sm" type="text" placeholder="Domen aplikacije" ng-model="app.DSN"><br>
+		<button class="btn btn-primary" ng-click="addApp(app)">Dodaj Aplikaciju</button>
+	</div>
 </div>
